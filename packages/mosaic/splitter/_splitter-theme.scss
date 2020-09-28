@@ -1,0 +1,28 @@
+@mixin mc-splitter-theme($theme) {
+    $second: map-get($theme, second);
+
+    $foreground: map-get($theme, foreground);
+    $background: map-get($theme, background);
+
+    $is-dark: map-get($theme, is-dark);
+
+    .mc-gutter {
+        background-color: map-get($background, button-bg);
+
+        cursor: col-resize;
+
+        &:hover {
+            background-color: mix(map-get($background, button-bg), map-get($background, hover));
+        }
+
+        &.mc-gutter_vertical {
+            cursor: row-resize;
+        }
+
+        &[disabled] {
+            background-color: mix(map-get($background, disabled-overlay), map-get($background, hover));
+
+            cursor: default;
+        }
+    }
+}

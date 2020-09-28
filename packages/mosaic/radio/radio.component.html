@@ -1,0 +1,22 @@
+<label class="mc-radio-label" [attr.for]="inputId" #label>
+    <input type="radio"
+           class="mc-radio-input cdk-visually-hidden"
+           #input
+           [id]="inputId"
+           [checked]="checked"
+           [disabled]="disabled"
+           [tabIndex]="tabIndex"
+           [attr.name]="name"
+           [required]="required"
+           [attr.aria-label]="ariaLabel"
+           [attr.aria-labelledby]="ariaLabelledby"
+           [attr.aria-describedby]="ariaDescribedby"
+           (change)="onInputChange($event)"
+           (click)="onInputClick($event)">
+
+    <div class="mc-radio-label-content" [class.mc-radio-label-before]="labelPosition == 'before'">
+        <div class="mc-radio-button__outer-circle"></div>
+        <div class="mc-radio-button__inner-circle"></div>
+        <ng-content></ng-content>
+    </div>
+</label>

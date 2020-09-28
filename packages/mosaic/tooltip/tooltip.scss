@@ -1,0 +1,92 @@
+@import '../core/theming/theming';
+@import '../core/styles/typography/typography-utils';
+@import '../core/styles/common/animation';
+@import '../core/styles/common/overlay';
+
+
+$zindex-tooltip: 1060;
+$tooltip-max-width: 240px;
+$border-radius-base: 3px;
+$tooltip-arrow-width: 8px;
+$tooltip-distance: $tooltip-arrow-width + 3px;
+
+.mc-tooltip {
+    display: block;
+    box-sizing: border-box;
+
+    visibility: visible;
+
+    position: relative;
+
+    margin: 0;
+    padding: 0;
+
+    z-index: $zindex-tooltip;
+
+    max-width: $tooltip-max-width;
+
+    list-style: none;
+    white-space: pre-line;
+}
+
+.mc-tooltip_placement-top {
+    padding-bottom: $tooltip-distance;
+}
+
+.mc-tooltip_placement-right {
+    padding-left: $tooltip-distance;
+}
+
+.mc-tooltip_placement-bottom {
+    padding-top: $tooltip-distance;
+}
+
+.mc-tooltip_placement-left {
+    padding-right: $tooltip-distance;
+}
+
+.mc-tooltip-inner {
+    padding: 8px 16px;
+    text-align: left;
+    text-decoration: none;
+    border-radius: $border-radius-base;
+    min-height: 16px; // 16px for font + 16px for padding = total 32px
+    height: fit-content;
+    vertical-align: center;
+}
+
+.mc-tooltip-arrow {
+    position: absolute;
+    width: 0;
+    height: 0;
+    border-color: transparent;
+    border-style: solid;
+}
+
+.mc-tooltip_placement-top .mc-tooltip-arrow {
+    bottom: $tooltip-distance - $tooltip-arrow-width;
+    border-width: $tooltip-arrow-width $tooltip-arrow-width 0;
+    left: 50%;
+    margin-left: -$tooltip-arrow-width;
+}
+
+.mc-tooltip_placement-right .mc-tooltip-arrow {
+    left: $tooltip-distance - $tooltip-arrow-width;
+    border-width: $tooltip-arrow-width $tooltip-arrow-width $tooltip-arrow-width 0;
+    top: 16px;
+    margin-top: -$tooltip-arrow-width;
+}
+
+.mc-tooltip_placement-left .mc-tooltip-arrow {
+    right: $tooltip-distance - $tooltip-arrow-width;
+    border-width: $tooltip-arrow-width 0 $tooltip-arrow-width $tooltip-arrow-width;
+    top: 16px;
+    margin-top: -$tooltip-arrow-width;
+}
+
+.mc-tooltip_placement-bottom .mc-tooltip-arrow {
+    top: $tooltip-distance - $tooltip-arrow-width;
+    border-width: 0 $tooltip-arrow-width $tooltip-arrow-width;
+    left: 50%;
+    margin-left: -$tooltip-arrow-width;
+}

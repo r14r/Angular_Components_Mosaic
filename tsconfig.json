@@ -1,0 +1,53 @@
+{
+    "compilerOptions": {
+        "outDir": "./dist/packages/all",
+        "experimentalDecorators": true,
+        "module": "es2015",
+        "moduleResolution": "node",
+        "noUnusedLocals": true,
+        "noUnusedParameters": true,
+        "strictNullChecks": true,
+        "strictFunctionTypes": true,
+        "skipLibCheck": true,
+        "target": "es2015",
+        "lib": [
+            "es5",
+            "es2015",
+            "dom"
+        ],
+        "baseUrl": "./packages",
+        "paths": {
+            "@ptsecurity/cdk/*": [
+                "./cdk/*"
+            ],
+            "@ptsecurity/mosaic/*": [
+                "./mosaic/*"
+            ],
+            "@ptsecurity/mosaic-moment-adapter/*": [
+                "./mosaic-moment-adapter/*"
+            ]
+        },
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "types": [
+            "jasmine",
+            "tslib",
+            "moment"
+        ],
+        "plugins": [
+            {
+                "name": "typescript-tslint-plugin",
+                "alwaysShowRuleFailuresAsWarnings": false,
+                "suppressWhileTypeErrorsPresent": false
+            }
+        ]
+    },
+    "include": [
+        "packages/**/*.ts",
+        "tools/**/*.ts"
+    ],
+    "exclude": [
+        "node_modules/"
+    ]
+}

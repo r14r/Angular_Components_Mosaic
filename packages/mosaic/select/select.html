@@ -1,0 +1,70 @@
+<div cdk-overlay-origin
+     class="mc-select__trigger"
+     (click)="toggle()"
+     [class.mc-select__trigger_multiple]="multiple"
+     #origin="cdkOverlayOrigin"
+     #trigger>
+    <div class="mc-select__matcher" [ngSwitch]="empty">
+        <span class="mc-select__placeholder" *ngSwitchCase="true">{{ placeholder || '\u00A0' }}</span>
+        <span *ngSwitchCase="false" [ngSwitch]="!!customTrigger">
+            <div *ngSwitchDefault [ngSwitch]="multiple" class="mc-select__match-container">
+                <span *ngSwitchCase="false" class="mc-select__matcher-text">{{ triggerValue }}</span>
+                <div *ngSwitchCase="true" class="mc-select__match-list">
+                    <mc-tag *ngFor="let option of triggerValues" [disabled]="disabled" [class.mc-error]="errorState">
+                        {{ option.viewValue || option.value }}
+                        <i mc-icon="mc-close-S_16" (click)="onRemoveMatcherItem(option, $event)"></i>
+                    </mc-tag>
+                </div>
+                <div class="mc-select__match-hidden-text" [style.display]="hiddenItems > 0 ? 'block' : 'none'">
+                    {{ hiddenItemsText }} {{ hiddenItems }}
+                </div>
+            </div>
+            <ng-content select="mc-select-trigger" *ngSwitchCase="true"></ng-content>
+        </span>
+    </div>
+
+    <div class="mc-select__arrow-wrapper">
+        <i class="mc-select__arrow" mc-icon="mc-angle-down-L_16" color="second"></i>
+    </div>
+</div>
+
+<ng-template
+    cdk-connected-overlay
+    cdkConnectedOverlayLockPosition
+    cdkConnectedOverlayHasBackdrop
+    cdkConnectedOverlayBackdropClass="cdk-overlay-transparent-backdrop"
+    [cdkConnectedOverlayScrollStrategy]="scrollStrategy"
+    [cdkConnectedOverlayOrigin]="origin"
+    [cdkConnectedOverlayOpen]="panelOpen"
+    [cdkConnectedOverlayPositions]="positions"
+    [cdkConnectedOverlayMinWidth]="triggerRect?.width"
+    [cdkConnectedOverlayOffsetY]="offsetY"
+    (backdropClick)="close()"
+    (attach)="onAttached()"
+    (detach)="close()">
+    <div
+        #panel
+        class="mc-select__panel {{ getPanelTheme() }}"
+        [ngClass]="panelClass"
+        (@transformPanel.done)="panelDoneAnimatingStream.next($event.toState)"
+        [style.transformOrigin]="transformOrigin"
+        [class.mc-select-panel-done-animcing]="panelDoneAnimating"
+        [style.font-size.px]="triggerFontSize"
+        (keydown)="handleKeydown($event)">
+
+        <div *ngIf="search" class="mc-select__search-container">
+            <ng-content select="[mcSelectSearch]"></ng-content>
+        </div>
+
+        <div #optionsContainer
+             class="mc-select__content"
+             [@fadeInContent]="'showing'"
+             (@fadeInContent.done)="onFadeInDone()">
+
+            <div *ngIf="isEmptySearchResult" class="mc-select__no-options-message">
+                <ng-content select="[mc-select-search-empty-result]"></ng-content>
+            </div>
+            <ng-content select="mc-option,mc-optgroup"></ng-content>
+        </div>
+    </div>
+</ng-template>

@@ -1,0 +1,21 @@
+{
+    "extends": [
+        "@ptsecurity/tslint-config"
+    ],
+    "rules": {
+        // Bans jasmine helper functions that will prevent the CI from properly running tests.
+        "ban": [true, ["fit"], ["fdescribe"]],
+
+        // Disallows importing the whole RxJS library. Submodules can be still imported.
+        "import-blacklist": [true],
+
+        "no-implicit-dependencies": false,
+        "no-single-line-block-comment": false,
+
+        "prefer-readonly": false,
+
+        // need only for this project
+        "no-non-null-assertion": false,
+        "strict-type-predicates": false
+    }
+}
